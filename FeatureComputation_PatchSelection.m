@@ -57,15 +57,20 @@ for jj = 1:100000:size(blocks1,2)
     GCoefs2 = OMPerr(Dictionary,blocks1(:,jj:jumpSize1),sigma*C);
 end
 
-%% The Dictionary atom usage overlapping rate
-GCoefsame=[];
-for i=1:size(GCoefs,2)
-    if numel(find(GCoefs(:,i)~=0))~=0
-        GCoefsame(1,i)=numel(intersect(find(GCoefs(:,i)~=0),find(GCoefs2(:,i)~=0)))./(numel(find(GCoefs(:,i)~=0))+numel(find(GCoefs2(:,i)~=0)));
-    else
-        GCoefsame(1,i)=0;
-    end
-end
+%% The Dictionary consistency degree analysis
+        GCoefsame=[];%Dictionary atom usage overlapping
+        GCoefweight=[];%Dictionary atom usage coefficient
+        for i=1:size(GCoefs,2)
+            if numel(find(GCoefs(:,i)~=0))~=0
+                GCoefweight(1,i)=((abs(sum(GCoefs2(find(GCoefs2(:,i)~=0),i)))-sum(GCoefs(find(GCoefs(:,i)~=0,i))))./(sum(abs(GCoefs2(find(GCoefs2(:,i)~=0),i)))+sum(abs(GCoefs(find(GCoefs(:,i)~=0),i))))).^0.6;
+                GCoefsame(1,i)=numel(intersect(find(GCoefs2(:,i)~=0),find(GCoefs(:,i)~=0)))./(numel(find(GCoefs(:,i)~=0))+numel(find(GCoefs2(:,i)~=0)));
+            else
+                GCoefsame(1,i)=0;
+                GCoefweight(1,i)=0;
+            end
+        end
+         sumGcoef=[];
+         sumGcoef=GCoefsame.*(GCoefweight.^0.2);
 
 %% Adaptively Patch Selection
 GCoefsame_ssim=zeros(224,224,2,size(center,1));
@@ -76,7 +81,7 @@ for i=1:size(center,1)
     if (row_x1<1);row_x1=1; end
     if (col_y1<1);col_y1=1; end
     for rows_i=1:57
-        GCoefnumsame(1,(rows_i-1)*57+1:rows_i*57)=GCoefsame((row_x1+rows_i-2)*rows+col_y1:(row_x1+rows_i-2)*rows+col_y1+56);
+        GCoefnumsame(1,(rows_i-1)*57+1:rows_i*57)=sumGcoef((row_x1+rows_i-2)*rows+col_y1:(row_x1+rows_i-2)*rows+col_y1+56);
     end
     ssim=imcrop(ssim_map,[x,y,223,223]);% Structural Similarity Patch
     GCoefsame=imresize(reshape(GCoefnumsame,57,57), [224 224]);%The Dictioanry Atom Uasge Overlapping Rate Patch 

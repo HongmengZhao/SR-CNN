@@ -19,3 +19,8 @@ Usage:
 <br>b. Please install KSVD toolbox for Matlab.<br>
 <br>c. Please download the Model of SR-CNN.<br>
 <br>d. Run SR_CNN_demo.m<br>
+
+Downloads:
+==============
+<br>Training Model of SR-CNN from baidu cloud: https://pan.baidu.com/s/1zjgLYAesBYKFYAejp6Sr4A<br>
+<br>Password: gzke <br>

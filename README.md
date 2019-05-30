@@ -3,7 +3,7 @@
 Full Reference Screen Content Image Quality Assessment via Integrating Multi-level Structure Similarity
 ==============
 
-<br>Chenglizhao Chen1,Hongmeng Zhao1,Huan Yang1,Chong Peng1∗,Teng Yu1∗<br>
+<br>Chenglizhao Chen#,Hongmeng Zhao#,Huan Yang#,Chong Peng∗,Teng Yu∗,Hong Qin<br>
 
 Prerequisites:
 ==============

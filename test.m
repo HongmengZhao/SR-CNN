@@ -3,9 +3,9 @@ function score = test( test_data )
 %% Load Net
 caffe.set_mode_cpu();
 caffe.reset_all();
-deploy = '.\test\test.prototxt';
+deploy = 'test.prototxt';
 caffe.reset_all();
-caffe_model = ['.\test\test.caffemodel'];
+caffe_model = ['test.caffemodel'];
 net = caffe.Net(deploy, caffe_model, 'test');
 batches = cell(1, 1);
 patch_score=[];
